@@ -1,0 +1,55 @@
+import { useState } from 'react';
+import styled from 'styled-components';
+
+import NotificationView from './NotificationView';
+import FeedbackDetailView from './FeedbackDetailView';
+
+const Container = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  background-color: var(--white);
+  width: ${({ $isOpen, $panelWidth }) => ($isOpen ? $panelWidth : '0px')};
+  z-index: 1000;
+  transition: width 0.2s ease-in-out;
+  overflow: hidden; //  부모 너비를 넘어간 자식은 보이지 않게 잘림
+`;
+const ToggleButton = styled.button`
+  position: fixed;
+  top: 40vh;
+  left: ${({ $isOpen, $panelWidth }) => ($isOpen ? $panelWidth : '0px')};
+  width: 5vh;
+  height: 7rem;
+  background-color: var(--white);
+  border-radius: 0 20px 20px 0;
+  color: var(--grey);
+  font-weight: bold;
+  font-size: 2rem;
+  cursor: pointer;
+  z-index: 1100;
+  transition: left 0.2s ease-in-out;
+`;
+
+const SidePanel = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [openType, setOpenType] = useState('notification'); // notification or feedbackDetail
+  const panelWidth = openType === 'notification' ? '40%' : '80%';
+  return (
+    <>
+      <ToggleButton
+        $isOpen={isOpen}
+        $panelWidth={panelWidth}
+        onClick={() => {
+          setIsOpen(!isOpen);
+        }}>
+        {isOpen ? '<' : '>'}
+      </ToggleButton>
+      <Container $isOpen={isOpen} $panelWidth={panelWidth}>
+        {openType === 'notification' ? <NotificationView /> : <FeedbackDetailView />}
+      </Container>
+    </>
+  );
+};
+
+export default SidePanel;

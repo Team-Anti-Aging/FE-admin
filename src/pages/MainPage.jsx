@@ -1,5 +1,13 @@
 import styled from 'styled-components';
-import KakaoMap from '../components/KakaoMap';
+
+//카카오맵
+import KakaoMap from '../features/Map/KakaoMap';
+
+//토글
+import FeedbackToggle from '../components/FeedbackToggle';
+
+//패널
+import SidePanel from '../features/SidePanel/SidePanel';
 
 const MapContainer = styled.div`
   position: relative;
@@ -11,6 +19,8 @@ const MainPage = () => {
   return (
     <MapContainer>
       <KakaoMap />
+      <FeedbackToggle />
+      <SidePanel />
     </MapContainer>
   );
 };

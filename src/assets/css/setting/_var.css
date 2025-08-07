@@ -1,0 +1,12 @@
+:root {
+  /* 메인 컬러 */
+  --mainBeige: #f1e9de;
+  --mainRed: #e07373;
+  --mainBlue: #4789f7;
+  --mainGreen: #3a7252;
+
+  /* 기본 색상 세트 */
+  --white: #fff;
+  --black: #000;
+  --grey: #676c74;
+}
