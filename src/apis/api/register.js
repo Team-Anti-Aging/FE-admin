@@ -1,6 +1,5 @@
 import { instance } from '../utils/instance';
 
-export const postRegistration = async (data) => {
-  const res = await instance.post('/dj/registration', data);
-  return res.data;
+export const postRegistration = (info) => {
+  return instance.post('/accounts/registration', info);
 };

@@ -1,16 +1,16 @@
 import { instance } from '../utils/instance';
 
-export const getFeedbackList = async (walktrailname, type, status) => {
-  const res = await instance.get(`/feedback/list/${walktrailname}/${type}/${status}`);
-  return res.data;
+// 산책로 피드백 리스트
+export const getFeedbacks = (walktrail_name) => {
+  return instance.get(`/admin_func/feedback/${walktrail_name}`);
 };
 
-export const getFeedbackDetail = async (id) => {
-  const res = await instance.get(`/feedback/${id}`);
-  return res.data;
+// 피드백 디테일 정보
+export const getFeedbackDetail = (id) => {
+  return instance.get(`/feedback/${id}`);
 };
 
-export const postFeedback = async (data) => {
-  const res = await instance.post('/feedback/upload', data);
-  return res.data;
+// 관리자 피드백 처리
+export const postAdminFeedback = (id, info) => {
+  return instance.post(`/admin_func/create/${id}`, info);
 };
