@@ -1,5 +1,10 @@
 import { instance } from '../utils/instance';
 
+// TODO더미
+export const getFeedbackDummy = (walktrail_name) => {
+  return instance.get(`/feedback/${walktrail_name}.json`);
+};
+
 // 산책로 피드백 리스트
 export const getFeedbacks = (walktrail_name) => {
   return instance.get(`/admin_func/feedback/${walktrail_name}`);

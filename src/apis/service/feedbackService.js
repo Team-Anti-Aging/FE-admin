@@ -1,5 +1,16 @@
 import * as feedback from '../api/feedback';
 
+//TODO더미
+export const getFeedbackDummyService = async (walktrail_name) => {
+  try {
+    const res = await feedback.getFeedbackDummy(walktrail_name);
+    const data = res.data;
+    return data;
+  } catch (e) {
+    console.error(e);
+  }
+};
+
 // 산책로 피드백 리스트
 export const getFeedbacksService = async (walktrail_name) => {
   try {

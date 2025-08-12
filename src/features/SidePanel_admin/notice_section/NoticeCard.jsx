@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import notification from '../assets/img/notification.png';
-import position from '../assets/img/position.png';
+import notification from '../../../assets/img/notification.png';
+import position from '../../../assets/img/position.png';
 
 const Container = styled.div`
   height: 8vh;
@@ -40,7 +40,7 @@ const Info = styled.span`
   font-size: 0.8vw;
 `;
 
-const Notification = (props) => {
+const NoticeCard = (props) => {
   return (
     <Container>
       <NotificationWrapper>
@@ -57,4 +57,4 @@ const Notification = (props) => {
   );
 };
 
-export default Notification;
+export default NoticeCard;
