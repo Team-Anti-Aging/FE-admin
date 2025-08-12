@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 
-import NotificationView from './NotificationView';
-import FeedbackDetailView from './FeedbackDetailView';
+import AdminPanel from '../features/SidePanel_admin/AdminPanel';
+import FeedbackPanel from '../features/SidePanel_feedback/FeedbackPanel';
 
 const Container = styled.div`
   position: fixed;
@@ -46,7 +46,7 @@ const SidePanel = () => {
         {isOpen ? '<' : '>'}
       </ToggleButton>
       <Container $isOpen={isOpen} $panelWidth={panelWidth}>
-        {openType === 'notification' ? <NotificationView /> : <FeedbackDetailView />}
+        {openType === 'notification' ? <AdminPanel /> : <FeedbackPanel />}
       </Container>
     </>
   );

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { useModeStore } from '../store/useModeStore';
 import { useState } from 'react';
 
 const Container = styled.div`
@@ -33,26 +34,27 @@ const Slide = styled.div`
   position: absolute;
   top: 0;
   bottom: 0;
-  left: ${({ $isOpen }) => ($isOpen ? '50%' : '0%')};
+  left: ${({ $active }) => ($active ? '50%' : '0%')};
   width: 50%;
   border-radius: 999px;
-  background-color: ${({ $isOpen }) => ($isOpen ? 'var(--mainRed)' : 'var(--mainBlue)')}; // 빨강 or 파랑
+  background-color: ${({ $active }) => ($active ? 'var(--mainRed)' : 'var(--mainBlue)')}; // 빨강 or 파랑
   transition: all 0.3s ease-in-out;
   z-index: 1;
 `;
 
 const FeedbackToggle = () => {
-  const [isOpen, setIsOpen] = useState(true);
+  const { toggle } = useModeStore();
+  const [isOpen, setIsOpen] = useState('false');
   return (
     <Container>
-      <ToggleWrapper>
-        <Slide $isOpen={isOpen} />
-        <ToggleButton $active={!isOpen} onClick={() => setIsOpen(false)}>
-          제안
-        </ToggleButton>
-        <ToggleButton $active={isOpen} onClick={() => setIsOpen(true)}>
-          불편
-        </ToggleButton>
+      <ToggleWrapper
+        onClick={() => {
+          toggle();
+          setIsOpen(!isOpen);
+        }}>
+        <Slide $active={isOpen} />
+        <ToggleButton $active={isOpen}>제안</ToggleButton>
+        <ToggleButton $active={!isOpen}>불편</ToggleButton>
       </ToggleWrapper>
     </Container>
   );

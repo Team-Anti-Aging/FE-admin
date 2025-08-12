@@ -1,10 +1,11 @@
 import * as walktrails from '../api/walktrails';
 
-// 더미
-export const getWalkTrilsService = async () => {
+// TODO더미
+export const getWalkTrilsService = async (walkTrailName) => {
   try {
-    const res = await walktrails.getWalkTrails();
-    return res.data;
+    const res = await walktrails.getWalkTrails(walkTrailName);
+    const { name, routes } = res.data;
+    return { name, routes };
   } catch (e) {
     console.error(e);
   }

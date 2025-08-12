@@ -1,8 +1,8 @@
 import { instance } from '../utils/instance';
 
 // 더미
-export const getWalkTrails = () => {
-  return instance.get('/walktrails.json');
+export const getWalkTrails = (walkTrailName) => {
+  return instance.get(`/${walkTrailName}.json`);
 };
 
 //산책로 이름 - 미처리 정보
