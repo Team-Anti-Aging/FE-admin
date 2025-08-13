@@ -1,8 +1,8 @@
-import { useState } from 'react';
 import styled from 'styled-components';
 
 import AdminPanel from '../features/SidePanel_admin/AdminPanel';
 import FeedbackPanel from '../features/SidePanel_feedback/FeedbackPanel';
+import { usePanelStore } from '../store/usePanelStore';
 
 const Container = styled.div`
   position: fixed;
@@ -17,7 +17,7 @@ const Container = styled.div`
 `;
 const ToggleButton = styled.button`
   position: fixed;
-  top: 40vh;
+  top: 41.4vh;
   left: ${({ $isOpen, $panelWidth }) => ($isOpen ? $panelWidth : '0px')};
   width: 5vh;
   height: 7rem;
@@ -29,24 +29,26 @@ const ToggleButton = styled.button`
   cursor: pointer;
   z-index: 1100;
   transition: left 0.2s ease-in-out;
+  border: solid var(--grey); /* 네 방향 동일하게 */
+  border-left: none;
 `;
 
 const SidePanel = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [openType, setOpenType] = useState('notification'); // notification or feedbackDetail
-  const panelWidth = openType === 'notification' ? '40%' : '80%';
+  const { openType, isOpen, pushToggle } = usePanelStore();
+
+  const panelWidth = openType === 'admin' ? '40%' : '80%';
   return (
     <>
       <ToggleButton
         $isOpen={isOpen}
         $panelWidth={panelWidth}
         onClick={() => {
-          setIsOpen(!isOpen);
+          pushToggle();
         }}>
         {isOpen ? '<' : '>'}
       </ToggleButton>
       <Container $isOpen={isOpen} $panelWidth={panelWidth}>
-        {openType === 'notification' ? <AdminPanel /> : <FeedbackPanel />}
+        {openType === 'admin' ? <AdminPanel /> : <FeedbackPanel />}
       </Container>
     </>
   );

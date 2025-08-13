@@ -1,11 +1,13 @@
 import { Map, Polyline, MapMarker } from 'react-kakao-maps-sdk';
 import { useRouteStore } from '../../store/useRouteStore';
 import { useModeStore } from '../../store/useModeStore';
+import { usePanelStore } from '../../store/usePanelStore';
 import styled from 'styled-components';
 import SidePanel from '../../views/SidePanel';
 import FeedbackToggle from '../../components/FeedbackToggle';
 import issueImg from '../../assets/img/red.png';
 import suggestionImg from '../../assets/img/blue.svg';
+import { useFeedbackStore } from '../../store/useFeedbackStore';
 
 const StyledMap = styled(Map)`
   position: relative;
@@ -16,6 +18,8 @@ const StyledMap = styled(Map)`
 const KakaoMap = () => {
   const { trailName, routes, feedbacks } = useRouteStore();
   const { mode } = useModeStore();
+  const { pushFeedback } = usePanelStore();
+  const { setFeedback } = useFeedbackStore();
   const img = mode === '불편' ? issueImg : suggestionImg;
 
   return (
@@ -32,6 +36,10 @@ const KakaoMap = () => {
               src: img,
               size: { width: 20, height: 20 },
               options: { offset: { x: 10, y: 10 } },
+            }}
+            onClick={() => {
+              pushFeedback();
+              setFeedback(f);
             }}
           />
         ))}

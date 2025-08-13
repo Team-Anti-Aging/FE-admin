@@ -17,6 +17,7 @@ const ToggleWrapper = styled.div`
   position: relative;
   border: solid grey;
   gap: 2rem;
+  cursor: pointer;
 `;
 
 const ToggleButton = styled.button`
