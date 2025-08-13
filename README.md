@@ -18,3 +18,7 @@
 
 ### 5. 불편/제안 타입 별 마커 표시
 ![action2](https://github.com/user-attachments/assets/864e365e-9fad-41d2-8f69-b8f7a85310b5)  
+
+### 6. 피드백 패널 - 피드백 정보 불러오기
+![action3](https://github.com/user-attachments/assets/850dbd4d-9ba9-4738-bca5-4564d2fe5e8a)
+
