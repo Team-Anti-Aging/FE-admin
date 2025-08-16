@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import logo from '../../assets/img/logo.png';
+import { useLoginStore } from '../../store/useLoginStore';
 
 //관리자 패널 섹션
 import InfoSection from './info_section/InfoSection';
@@ -24,12 +25,21 @@ const Img = styled.img`
   height: 10vh;
 `;
 
+const Btn = styled.button``;
+
 const AdminPanel = () => {
+  const { setLogout } = useLoginStore();
+
+  const handleLogout = () => {
+    setLogout();
+  };
+
   return (
     <Container>
       <TitleWrapper>
         <Img src={logo} />
         최근 신고 내역
+        <Btn onClick={handleLogout}>로그아웃</Btn>
       </TitleWrapper>
       <InfoSection />
       <NoticeSection />

@@ -1,13 +1,17 @@
-// App.js 또는 index.js 등에서
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Home from './views/Home';
+import LoginPage from './views/LoginPage';
+import ProtectedRoute from './routes/ProtectedRoute';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path="/" element={<Home />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
