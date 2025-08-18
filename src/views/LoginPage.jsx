@@ -1,7 +1,14 @@
 import styled from 'styled-components';
-import { postLogin } from '../apis/api/login';
-import { useLoginStore } from '../store/useLoginStore';
+
+// 훅
 import { useNavigate } from 'react-router-dom';
+
+// api
+import { postLogin } from '../apis/api/login';
+import { setCookie, removeCookie } from '../apis/utils/cookie';
+
+// 스토어
+import { useLoginStore } from '../store/useLoginStore';
 
 const Container = styled.div`
   width: 100vw;
@@ -53,13 +60,12 @@ const LoginPage = () => {
       password: fd.get('password'),
     };
 
-    // API요청
-    const { access, refresh } = await postLogin(info);
+    const { access } = await postLogin(info);
 
     // 로그인 세팅
-    setLogin(access);
+    setLogin();
+    setCookie('accessToken', access, { path: '/', secure: true });
     alert('로그인 성공!');
-
     //리디렉션
     navigate('/');
   };
@@ -70,6 +76,12 @@ const LoginPage = () => {
         <Input name="password" type="password" placeholder="비밀번호" autoComplete="current-password" />
         <Bnt type="submit">로그인</Bnt>
       </Form>
+      <button
+        onClick={() => {
+          removeCookie('accessToken');
+        }}>
+        쿠키버리기
+      </button>
     </Container>
   );
 };

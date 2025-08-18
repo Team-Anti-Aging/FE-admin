@@ -41,15 +41,15 @@ const UploadButton = styled.button`
 `;
 
 const HeaderSection = () => {
-  const { feedback } = useFeedbackStore();
+  const { feedbackDetail } = useFeedbackStore();
   return (
     <Container>
       <InfoBox>
-        <Name>{feedback.walktrail}</Name>
+        <Name>{feedbackDetail?.walktrail}</Name>
         <Wrapper>
           <Img src={pos} />
-          <Text>{feedback.location}</Text>
-          <Text>{feedback.created_at}</Text>
+          <Text>{feedbackDetail?.location}</Text>
+          <Text>{feedbackDetail?.created_at}</Text>
         </Wrapper>
       </InfoBox>
       <UploadButton>처리하기</UploadButton>

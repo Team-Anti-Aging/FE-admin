@@ -37,20 +37,20 @@ const TextBox = styled.div`
 `;
 
 const UserSection = () => {
-  const { feedback } = useFeedbackStore();
+  const { feedbackDetail } = useFeedbackStore();
   return (
     <Component>
       <Box $height="20rem">
         <Title>해당 지역 사진</Title>
-        <Img src={feedback.feedback_image_url} />
+        <Img src={feedbackDetail?.feedback_image_url} />
       </Box>
       <Box $height="7rem">
         <Title>문의 내용</Title>
-        <TextBox>{feedback.feedback_content}</TextBox>
+        <TextBox>{feedbackDetail?.feedback_content}</TextBox>
       </Box>
       <Box $height="4rem">
         <Title>카테고리</Title>
-        <TextBox>{feedback.category}</TextBox>
+        <TextBox>{feedbackDetail?.category}</TextBox>
       </Box>
     </Component>
   );

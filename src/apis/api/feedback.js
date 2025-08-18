@@ -2,8 +2,9 @@ import { instance } from '../utils/instance';
 
 // 산책로 피드백 리스트
 export const getFeedbacks = async (walktrail_name) => {
-  const res = await instance.get(`/admin_func/feedback/${walktrail_name}`);
-  return res; // TODO 정제
+  const { data } = await instance.get(`/admin_func/feedback/${walktrail_name}`);
+  console.log('피드백', data);
+  return data;
 };
 
 // 피드백 디테일 정보

@@ -7,6 +7,6 @@ export const postLogin = async (info) => {
 };
 
 export const postLogout = async () => {
-  const { data } = await instance.post('/accounts/logout');
+  const { data } = await instance.post('/accounts/logout/');
   return data;
 };
