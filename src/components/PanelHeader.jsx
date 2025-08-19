@@ -67,7 +67,7 @@ const PanelHeader = () => {
   const { PanelType } = usePanelStore();
   const { setTrailName, trailName } = useTrailNameStore();
   const { setRoutes } = useRouteStore();
-  const { setFeedback } = useFeedbackStore();
+  const { setFeedback, setRedData, setBlueData, setCategoryFeedbacks } = useFeedbackStore();
   const map = useMap();
 
   const { data: walktrails = [] } = useQuery({
@@ -102,6 +102,34 @@ const PanelHeader = () => {
   const handleFeedbacks = async (trailName) => {
     const data = await getFeedbacks(trailName);
     setFeedback(data);
+    const red = [
+      { name: '안전', value: 0 },
+      { name: '청결', value: 0 },
+      { name: '이동성', value: 0 },
+      { name: '소음-방해', value: 0 },
+      { name: '기타', value: 0 },
+    ];
+    const blue = [
+      { name: '편의시설 확충', value: 0 },
+      { name: '경관 개선', value: 0 },
+      { name: '정보 제공', value: 0 },
+      { name: '프로그램/이벤트', value: 0 },
+      { name: '기타', value: 0 },
+    ];
+    data.forEach((f) => {
+      if (f.type === '불편') {
+        red.forEach((r) => {
+          if (r.name === f.category) r.value++;
+        });
+      } else if (f.type === '제안') {
+        blue.forEach((b) => {
+          if (b.name === f.category) b.value++;
+        });
+      }
+    });
+    setRedData(red);
+    setBlueData(blue);
+    setCategoryFeedbacks([]);
   };
   //금일 신고 내역 패널일 때
   const handleNotice = async (trailName) => {

@@ -4,6 +4,9 @@ import styled from 'styled-components';
 import WalkTrailPieRed from './WalkTrailPieRed';
 import WalkTrailPieBlue from './WalkTrailPieBlue';
 
+//스토어
+import { useFeedbackStore } from '../../store/useFeedbackStore';
+
 const Container = styled.div`
   flex: 1;
   box-sizing: border-box;
@@ -24,12 +27,13 @@ const Title = styled.div`
 `;
 
 const WalkTrailDetail = ({ trailName }) => {
+  const { redData, blueData } = useFeedbackStore();
   return (
     <Container>
       <Title>{trailName} 카테고리</Title>
       <Wrapper>
-        <WalkTrailPieRed />
-        <WalkTrailPieBlue />
+        <WalkTrailPieRed redData={redData} />
+        <WalkTrailPieBlue blueData={blueData} />
       </Wrapper>
     </Container>
   );

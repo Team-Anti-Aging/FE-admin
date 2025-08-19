@@ -9,6 +9,10 @@ import { usePanelStore } from '../store/usePanelStore';
 import { useTrailNameStore } from '../store/useTrailNameStore';
 import { useRouteStore } from '../store/useRouteStore';
 import { useFeedbackStore } from '../store/useFeedbackStore';
+import { useWalkTrailChartStore } from '../store/useWalkTrailChartStore';
+
+// api
+import { getWalkTrailsChart } from '../apis/api/walktrails';
 
 const Container = styled.div`
   position: fixed;
@@ -44,7 +48,18 @@ const SideNav = () => {
   const { openPanel, PanelType } = usePanelStore();
   const { setTrailName } = useTrailNameStore();
   const { setRoutes } = useRouteStore();
-  const { setFeedback } = useFeedbackStore();
+  const { setFeedback, setCategoryFeedbacks } = useFeedbackStore();
+  const { setWalkTrailChart } = useWalkTrailChartStore();
+
+  //산책로 현황 차트 핸들러
+  const handleWalkTrailChart = async () => {
+    try {
+      const data = await getWalkTrailsChart();
+      setWalkTrailChart(data);
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   return (
     <Container>
@@ -56,6 +71,8 @@ const SideNav = () => {
           setTrailName(null);
           setRoutes([]);
           setFeedback([]);
+          setCategoryFeedbacks([]);
+          handleWalkTrailChart();
         }}>
         <Img src={dong} />
         <Text>산책로 현황</Text>
@@ -67,6 +84,7 @@ const SideNav = () => {
           setTrailName(null);
           setRoutes([]);
           setFeedback([]);
+          setCategoryFeedbacks([]);
         }}>
         <Img src={notice} />
         <Text>금일 신고 내역</Text>
@@ -78,6 +96,7 @@ const SideNav = () => {
           setTrailName(null);
           setRoutes([]);
           setFeedback([]);
+          setCategoryFeedbacks([]);
         }}>
         <Img src={ai} />
         <Text>AI 보고서</Text>

@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 import { ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 
+//스토어
+import { useFeedbackStore } from '../../store/useFeedbackStore';
+
 const Container = styled.div`
   width: 19rem;
   height: 19rem;
@@ -10,15 +13,15 @@ const Container = styled.div`
   margin: 0 auto;
 `;
 
-const data = [
-  { name: '안전', value: 3 },
-  { name: '청결', value: 5 },
-  { name: '이동성', value: 19 },
-  { name: '소음-방해', value: 1 },
-  { name: '기타', value: 8 },
-];
+const WalkTrailPieRed = ({ redData }) => {
+  const { setCategoryFeedbacks, feedbacks } = useFeedbackStore();
 
-const WalkTrailPieRed = () => {
+  //카테고리 피드백만 표시
+  const handleCategoryFeedback = (category) => {
+    const tmp = feedbacks?.filter((f) => f.category === category);
+    setCategoryFeedbacks(tmp);
+  };
+
   return (
     <Container>
       <ResponsiveContainer width="100%" height="100%">
@@ -26,18 +29,22 @@ const WalkTrailPieRed = () => {
           <Pie
             outerRadius="50%"
             dataKey="value"
-            data={data}
+            data={redData}
             fill="var(--mainRed)"
-            label={({ name }) => name}
+            label={({ name, value }) => (value > 0 ? name : null)}
             style={{ cursor: 'pointer' }}>
-            {data.map((d, i) => (
-              <Cell
-                key={d.name}
-                fill="#E07373" // 기존 색 유지
-                onClick={() => alert(d.name)} // ← 조각별 클릭
-                style={{ cursor: 'pointer' }}
-              />
-            ))}
+            {redData?.map((d) => {
+              return (
+                <Cell
+                  key={d.name}
+                  fill="#E07373" // 기존 색 유지
+                  onClick={() => {
+                    handleCategoryFeedback(d.name);
+                  }} // ← 조각별 클릭
+                  style={{ cursor: 'pointer' }}
+                />
+              );
+            })}
           </Pie>
         </PieChart>
       </ResponsiveContainer>

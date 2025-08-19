@@ -1,11 +1,10 @@
 import styled from 'styled-components';
-import { useFeedbackStore } from '../../../store/useFeedbackStore';
 
 const Component = styled.div`
   width: 30rem;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  gap: 1rem;
 `;
 const Box = styled.div`
   height: ${({ $height }) => $height};
@@ -25,6 +24,7 @@ const Img = styled.img`
 const Title = styled.span`
   font-weight: bold;
   margin-left: 1rem;
+  font-size: 0.7rem;
 `;
 const TextBox = styled.div`
   border: solid 0.7px;
@@ -36,19 +36,18 @@ const TextBox = styled.div`
   overflow-y: auto; // 넘치면 스크롤 생성
 `;
 
-const UserSection = () => {
-  const { feedbackDetail } = useFeedbackStore();
+const UserSection = ({ feedbackDetail }) => {
   return (
     <Component>
       <Box $height="20rem">
-        <Title>해당 지역 사진</Title>
+        <Title>Before</Title>
         <Img src={feedbackDetail?.feedback_image_url} />
       </Box>
-      <Box $height="7rem">
+      <Box $height="9rem">
         <Title>문의 내용</Title>
         <TextBox>{feedbackDetail?.feedback_content}</TextBox>
       </Box>
-      <Box $height="4rem">
+      <Box $height="3rem">
         <Title>카테고리</Title>
         <TextBox>{feedbackDetail?.category}</TextBox>
       </Box>

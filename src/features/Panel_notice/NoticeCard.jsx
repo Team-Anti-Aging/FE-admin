@@ -3,6 +3,9 @@ import posImg from '../../assets/img/position.png';
 import redIcon from '../../assets/img/red.png';
 import blueIcon from '../../assets/img/blue.svg';
 
+//스토어
+import { useFeedbackStore } from '../../store/useFeedbackStore';
+
 const Container = styled.button`
   width: 90%;
   height: 3rem;
@@ -52,8 +55,13 @@ const Info = styled.span`
 `;
 
 const NoticeCard = (props) => {
+  const { setFeedback } = useFeedbackStore();
+
   return (
-    <Container>
+    <Container
+      onClick={() => {
+        setFeedback([]);
+      }}>
       <NotificationWrapper>
         <NotificationImg src={redIcon} />
         <Keyword>시설물 고장</Keyword>

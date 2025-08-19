@@ -6,6 +6,7 @@ import WalkTrailBarChart from './WalkTrailBarChart';
 
 //스토어
 import { useTrailNameStore } from '../../store/useTrailNameStore';
+import { useWalkTrailChartStore } from '../../store/useWalkTrailChartStore';
 
 const Container = styled.div`
   flex: 1;
@@ -24,11 +25,12 @@ const Title = styled.span`
 
 const WalktrailSection = () => {
   const { trailName } = useTrailNameStore();
+  const { walkTrailChart } = useWalkTrailChartStore();
   return (
     <Container>
       {trailName === null ? (
         <>
-          <Title>불편/제안 현황</Title> <WalkTrailBarChart />
+          <Title>불편/제안 현황</Title> <WalkTrailBarChart walkTrailChart={walkTrailChart} />
         </>
       ) : (
         <WalkTrailDetail trailName={trailName} />

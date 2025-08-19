@@ -11,6 +11,7 @@ import { usePanelStore } from '../store/usePanelStore';
 //컴포넌트
 import SideNav from '../components/SideNav';
 import Panel from '../components/Panel';
+import { getFeedbackDetail } from '../apis/api/feedback';
 
 const StyledMap = styled(Map)`
   position: relative;
@@ -20,13 +21,23 @@ const StyledMap = styled(Map)`
 
 const KakaoMap = () => {
   const { routes } = useRouteStore();
-  const { feadbacks } = useFeedbackStore();
+  const { feedbacks, setFeedbackDetail, categoryFeedbacks } = useFeedbackStore();
   const { openPanel } = usePanelStore();
+
+  //피드백 디테일 업데이트 핸들러
+  const handleFeedbackDetail = async (id) => {
+    try {
+      const res = await getFeedbackDetail(id);
+      setFeedbackDetail(res);
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   return (
     <StyledMap center={{ lat: 37.591829, lng: 127.045189 }} level={5} style={{ width: '100%', height: '100%' }}>
       <Polyline path={routes} strokeWeight={8} strokeColor={'red'} strokeStyle={'solid'} />
-      {feadbacks?.map((f) => (
+      {(categoryFeedbacks.length === 0 ? feedbacks : categoryFeedbacks)?.map((f) => (
         <MapMarker
           key={f.id}
           position={{ lat: f.latitude, lng: f.longitude }}
@@ -38,6 +49,7 @@ const KakaoMap = () => {
           }}
           onClick={() => {
             openPanel('feedback');
+            handleFeedbackDetail(f.id);
           }}
         />
       ))}

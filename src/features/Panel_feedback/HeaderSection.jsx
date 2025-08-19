@@ -1,11 +1,9 @@
 import styled from 'styled-components';
-import pos from '../../../assets/img/position.png';
-import { useFeedbackStore } from '../../../store/useFeedbackStore';
+import pos from '../../assets/img/position.png';
 
 const Container = styled.div`
-  flex: 1;
+  height: 4rem;
   display: flex;
-  justify-content: space-evenly;
   align-items: center;
 `;
 const InfoBox = styled.div`
@@ -19,40 +17,30 @@ const InfoBox = styled.div`
 const Wrapper = styled.div`
   display: flex;
   justify-content: space-evenly;
-  gap: 0.5rem;
+  gap: 1rem;
   color: var(--grey);
+  align-items: center;
 `;
 const Name = styled.span`
   font-size: 2rem;
   font-weight: bold;
 `;
 const Img = styled.img``;
-const Text = styled.span``;
-
-const UploadButton = styled.button`
-  width: 15rem;
-  height: 5rem;
-  margin-left: 10rem;
-  font-size: 2rem;
-  color: var(--white);
-  background-color: var(--mainGreen);
-  border-radius: 20px;
-  font-weight: bold;
+const Text = styled.span`
+  font-size: ${({ $posi }) => ($posi ? '1rem' : '0.8rem')};
 `;
 
-const HeaderSection = () => {
-  const { feedbackDetail } = useFeedbackStore();
+const HeaderSection = ({ feedbackDetail }) => {
   return (
     <Container>
       <InfoBox>
         <Name>{feedbackDetail?.walktrail}</Name>
         <Wrapper>
           <Img src={pos} />
-          <Text>{feedbackDetail?.location}</Text>
-          <Text>{feedbackDetail?.created_at}</Text>
+          <Text $posi={true}>{feedbackDetail?.location}</Text>
+          <Text>{feedbackDetail?.created_at_parse}</Text>
         </Wrapper>
       </InfoBox>
-      <UploadButton>처리하기</UploadButton>
     </Container>
   );
 };
