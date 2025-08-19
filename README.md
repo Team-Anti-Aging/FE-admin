@@ -1,24 +1,16 @@
 # ※ 바꿔보길 관리자 페이지  
 
-### 1. 관리자 메인 페이지
-<img width="1919" height="868" alt="image" src="https://github.com/user-attachments/assets/53a4f09b-9841-46df-af20-8a6a00c5a315"  />  
+### 관리자 메인 페이지
+<img width="1919" height="864" alt="image" src="https://github.com/user-attachments/assets/bf2b4160-8189-45f8-a231-242e1720f002" />  
 
 
-### 2. 토글  
-![toggle](https://github.com/user-attachments/assets/cc1e27aa-b93c-4b38-bb3b-8b4704d3e129)  
+### 산책로 현황 기능1) 모든 산책로 불편/제안 현황 시각화
+![1](https://github.com/user-attachments/assets/a5a7ead5-c3e4-4f64-b1fd-743f24534f02)  
 
 
-### 3. 사이드 패널 - 알림 보기  
-![lijlij](https://github.com/user-attachments/assets/cd2922f9-89cc-4fb2-8a25-446c30a5dadb)  
+### 산책로 현황 기능2) 각 산책로 카테고리별 분류 및 시각화 
+![2](https://github.com/user-attachments/assets/b3adb193-b1c7-49a3-b7af-b7fd3a914f89)  
 
-
-### 4. 산책로 선택 시 지도 범위 자동 맞춤
-![action1](https://github.com/user-attachments/assets/5b1b64d3-96b7-4ee1-a6e6-dd76481773e4)  
-
-
-### 5. 불편/제안 타입 별 마커 표시
-![action2](https://github.com/user-attachments/assets/864e365e-9fad-41d2-8f69-b8f7a85310b5)  
-
-### 6. 피드백 패널 - 피드백 정보 불러오기
-![action3](https://github.com/user-attachments/assets/850dbd4d-9ba9-4738-bca5-4564d2fe5e8a)
+### 산책로 현황 기능3) 피드백 상세 정보 확인 및 처리 기능
+![3](https://github.com/user-attachments/assets/f1ee495d-e666-49e9-80bc-653907315ed8)
 
