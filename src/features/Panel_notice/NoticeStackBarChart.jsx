@@ -11,26 +11,18 @@ const Container = styled.div`
   margin: 0 auto;
 `;
 
-const data = [
-  { name: '홍릉두물길', 제안: 6, 불편: 12 },
-  { name: '청량가로', 제안: 3, 불편: 7 },
-  { name: '장안벚꽃안길', 제안: 10, 불편: 2 },
-  { name: '배봉두', 제안: 1, 불편: 11 },
-  { name: '천장산하늘길', 제안: 9, 불편: 9 },
-];
-
-const NoticeStackBarChart = () => {
+const NoticeStackBarChart = ({ NoticeChart }) => {
   return (
     <Container>
       <ResponsiveContainer width="100%" height="100%">
         <BarChart
           width={500}
           height={300}
-          data={data}
+          data={NoticeChart}
           margin={{
-            top: 20,
-            right: 30,
-            left: 20,
+            top: 10,
+            right: 20,
+            left: -30,
             bottom: 5,
           }}>
           <CartesianGrid strokeDasharray="3 3" />

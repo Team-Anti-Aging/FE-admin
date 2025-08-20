@@ -59,7 +59,6 @@ const LoginPage = () => {
       username: fd.get('username'),
       password: fd.get('password'),
     };
-    console.log(info);
 
     const { access } = await postLogin(info);
 

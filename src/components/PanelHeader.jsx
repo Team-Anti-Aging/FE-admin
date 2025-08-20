@@ -17,7 +17,7 @@ import { getWalkTrailsInfo } from '../apis/api/walktrails';
 import { removeCookie } from '../apis/utils/cookie';
 import { getRoute } from '../apis/api/walktrails';
 import { getFeedbacks } from '../apis/api/feedback';
-import { getNotices } from '../apis/api/notice';
+import { getNoticesWalkTrail } from '../apis/api/notice';
 
 const Header = styled.div`
   height: 17.6rem;
@@ -67,7 +67,7 @@ const PanelHeader = () => {
   const { PanelType } = usePanelStore();
   const { setTrailName, trailName } = useTrailNameStore();
   const { setRoutes } = useRouteStore();
-  const { setFeedback, setRedData, setBlueData, setCategoryFeedbacks } = useFeedbackStore();
+  const { setFeedback, setRedData, setBlueData, setCategoryFeedbacks, setNoticeFeedbacks } = useFeedbackStore();
   const map = useMap();
 
   const { data: walktrails = [] } = useQuery({
@@ -133,9 +133,9 @@ const PanelHeader = () => {
   };
   //금일 신고 내역 패널일 때
   const handleNotice = async (trailName) => {
-    //TODO 명세서 뚫리고 체크 필요
-    // const data = await getNotices(trailName);
-    // setFeedback(data);
+    const data = await getNoticesWalkTrail(trailName);
+    setFeedback(data);
+    setNoticeFeedbacks([]);
   };
 
   return (

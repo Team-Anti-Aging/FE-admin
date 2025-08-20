@@ -21,7 +21,7 @@ const StyledMap = styled(Map)`
 
 const KakaoMap = () => {
   const { routes } = useRouteStore();
-  const { feedbacks, setFeedbackDetail, categoryFeedbacks } = useFeedbackStore();
+  const { feedbacks, setFeedbackDetail, categoryFeedbacks, noticeFeedbacks } = useFeedbackStore();
   const { openPanel } = usePanelStore();
 
   //피드백 디테일 업데이트 핸들러
@@ -33,11 +33,13 @@ const KakaoMap = () => {
       console.error(e);
     }
   };
+  let markerList =
+    noticeFeedbacks.length === 0 ? (categoryFeedbacks.length === 0 ? feedbacks : categoryFeedbacks) : noticeFeedbacks;
 
   return (
     <StyledMap center={{ lat: 37.591829, lng: 127.045189 }} level={5} style={{ width: '100%', height: '100%' }}>
       <Polyline path={routes} strokeWeight={8} strokeColor={'red'} strokeStyle={'solid'} />
-      {(categoryFeedbacks.length === 0 ? feedbacks : categoryFeedbacks)?.map((f) => (
+      {markerList?.map((f) => (
         <MapMarker
           key={f.id}
           position={{ lat: f.latitude, lng: f.longitude }}

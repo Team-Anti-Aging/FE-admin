@@ -2,6 +2,9 @@ import styled from 'styled-components';
 
 //컴포넌트
 import NoticeCard from './NoticeCard';
+//스토어
+import { useFeedbackStore } from '../../store/useFeedbackStore';
+
 const Conatiner = styled.div`
   flex: 1;
   box-sizing: border-box;
@@ -10,14 +13,19 @@ const Conatiner = styled.div`
   padding: 1rem;
   gap: 0.5rem;
 `;
+const Box = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
 
 const Title = styled.span`
   font-weight: bold;
   font-size: 1rem;
   margin-left: 2rem;
+  margin-right: 3rem;
 `;
 const CradWrapper = styled.div`
-  width: 95%;
+  width: 100%;
   height: 22rem;
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
   box-sizing: border-box;
@@ -35,14 +43,17 @@ const CradWrapper = styled.div`
 const NoticeDetail = () => {
   const today = new Date();
   const formattedDate = `${today.getFullYear()}년 ${today.getMonth() + 1}월 ${today.getDate()}일`;
+  const { feedbacks } = useFeedbackStore();
 
-  const dummpy = [1, 2, 3, 4, 5, 6, 7];
   return (
     <Conatiner>
-      <Title>{formattedDate}</Title>
+      <Box>
+        <Title>{formattedDate}</Title>
+        <Title>금일 신고 : {feedbacks.length} 개</Title>
+      </Box>
       <CradWrapper>
-        {dummpy.map((_, idx) => {
-          return <NoticeCard key={idx} />;
+        {feedbacks?.map((feedback) => {
+          return <NoticeCard key={feedback.id} feedback={feedback} />;
         })}
       </CradWrapper>
     </Conatiner>

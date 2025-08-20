@@ -9,10 +9,11 @@ import { usePanelStore } from '../store/usePanelStore';
 import { useTrailNameStore } from '../store/useTrailNameStore';
 import { useRouteStore } from '../store/useRouteStore';
 import { useFeedbackStore } from '../store/useFeedbackStore';
-import { useWalkTrailChartStore } from '../store/useWalkTrailChartStore';
+import { useChartStore } from '../store/useChartStore';
 
 // api
 import { getWalkTrailsChart } from '../apis/api/walktrails';
+import { getNotices } from '../apis/api/notice';
 
 const Container = styled.div`
   position: fixed;
@@ -48,14 +49,24 @@ const SideNav = () => {
   const { openPanel, PanelType } = usePanelStore();
   const { setTrailName } = useTrailNameStore();
   const { setRoutes } = useRouteStore();
-  const { setFeedback, setCategoryFeedbacks } = useFeedbackStore();
-  const { setWalkTrailChart } = useWalkTrailChartStore();
+  const { setFeedback, setCategoryFeedbacks, setNoticeFeedbacks } = useFeedbackStore();
+  const { setWalkTrailChart, setNoticeChart } = useChartStore();
 
   //산책로 현황 차트 핸들러
   const handleWalkTrailChart = async () => {
     try {
-      const data = await getWalkTrailsChart();
-      setWalkTrailChart(data);
+      const WalkTrailList = await getWalkTrailsChart();
+      setWalkTrailChart(WalkTrailList);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  // 신고 내역 차트 핸들러
+  const handleNoticeChart = async () => {
+    try {
+      const NoticeList = await getNotices();
+      setNoticeChart(NoticeList);
     } catch (e) {
       console.error(e);
     }
@@ -72,6 +83,7 @@ const SideNav = () => {
           setRoutes([]);
           setFeedback([]);
           setCategoryFeedbacks([]);
+          setNoticeFeedbacks([]);
           handleWalkTrailChart();
         }}>
         <Img src={dong} />
@@ -85,6 +97,8 @@ const SideNav = () => {
           setRoutes([]);
           setFeedback([]);
           setCategoryFeedbacks([]);
+          setNoticeFeedbacks([]);
+          handleNoticeChart();
         }}>
         <Img src={notice} />
         <Text>금일 신고 내역</Text>
@@ -97,6 +111,7 @@ const SideNav = () => {
           setRoutes([]);
           setFeedback([]);
           setCategoryFeedbacks([]);
+          setNoticeFeedbacks([]);
         }}>
         <Img src={ai} />
         <Text>AI 보고서</Text>

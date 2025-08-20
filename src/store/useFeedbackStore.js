@@ -12,5 +12,7 @@ export const useFeedbackStore = create((set) => {
     setBlueData: (blueData) => set({ blueData }),
     categoryFeedbacks: [],
     setCategoryFeedbacks: (categoryFeedbacks) => set({ categoryFeedbacks }),
+    noticeFeedbacks: [],
+    setNoticeFeedbacks: (noticeFeedbacks) => set({ noticeFeedbacks }),
   };
 });

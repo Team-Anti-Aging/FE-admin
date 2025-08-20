@@ -10,7 +10,30 @@ export const getFeedbacks = async (walktrail_name) => {
 export const getFeedbackDetail = async (Fid) => {
   const { data } = await instance.get(`/feedback/${Fid}/`);
   console.log('피드백 디테일', data);
-  const { id, walktrail, location, category, feedback_content, feedback_image_url, created_at } = data;
+  let { id, walktrail, location, category, feedback_content, feedback_image_url, created_at } = data;
+
+  switch (walktrail) {
+    case 1:
+      walktrail = '홍릉두물길';
+      break;
+    case 2:
+      walktrail = '청량가로수길';
+      break;
+
+    case 3:
+      walktrail = '장안벚꽃안길';
+      break;
+
+    case 4:
+      walktrail = '배봉두매十里(십리)길';
+      break;
+
+    case 5:
+      walktrail = '천장산하늘길';
+      break;
+    default:
+      break;
+  }
 
   const date = new Date(created_at);
   const created_at_parse = date

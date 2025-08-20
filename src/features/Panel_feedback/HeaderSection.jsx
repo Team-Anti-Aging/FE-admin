@@ -22,12 +22,13 @@ const Wrapper = styled.div`
   align-items: center;
 `;
 const Name = styled.span`
-  font-size: 2rem;
+  font-size: 1rem;
   font-weight: bold;
 `;
 const Img = styled.img``;
 const Text = styled.span`
   font-size: ${({ $posi }) => ($posi ? '1rem' : '0.8rem')};
+  font-weight: ${({ $posi }) => ($posi ? '' : 'bold')};
 `;
 
 const HeaderSection = ({ feedbackDetail }) => {

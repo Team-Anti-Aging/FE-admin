@@ -5,6 +5,7 @@ import NoticeDetail from './NoticeDetail';
 
 //스토어
 import { useTrailNameStore } from '../../store/useTrailNameStore';
+import { useChartStore } from '../../store/useChartStore';
 
 const Container = styled.div`
   flex: 1;
@@ -29,17 +30,17 @@ const NoticeSection = () => {
   const formattedDate = `${today.getFullYear()}년 ${today.getMonth() + 1}월 ${today.getDate()}일`;
 
   const { trailName } = useTrailNameStore();
+  const { NoticeChart } = useChartStore();
 
   return (
     <Container>
       {trailName === null ? (
         <>
-          {' '}
           <Wrapper>
             <Title>Today</Title>
             <Title>{formattedDate}</Title>
           </Wrapper>
-          <NoticeStackBarChart />
+          <NoticeStackBarChart NoticeChart={NoticeChart} />
         </>
       ) : (
         <NoticeDetail />
