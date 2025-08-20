@@ -47,7 +47,7 @@ const Bnt = styled.button`
 `;
 
 const LoginPage = () => {
-  const { setLogin } = useLoginStore();
+  const { login } = useLoginStore();
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
@@ -59,26 +59,31 @@ const LoginPage = () => {
       username: fd.get('username'),
       password: fd.get('password'),
     };
-
-    const { access } = await postLogin(info);
-
-    // 로그인 세팅
-    setLogin();
-    setCookie('accessToken', access, { path: '/', secure: true });
-    alert('로그인 성공!');
-    //리디렉션
-    navigate('/');
+    try {
+      const { access, refresh } = await postLogin(info);
+      // 로그인 세팅
+      login();
+      setCookie('accessToken', access, { path: '/', secure: true });
+      setCookie('refreshToken', refresh, { path: '/', secure: true });
+      //리디렉션
+      navigate('/');
+    } catch (e) {
+      //실패 처리
+      alert('실패');
+    }
   };
   return (
     <Container>
       <Form onSubmit={handleLogin}>
-        <Input name="username" type="text" placeholder="아이디" autoComplete="username" />
-        <Input name="password" type="password" placeholder="비밀번호" autoComplete="current-password" />
+        <Input name="username" type="text" placeholder="아이디" autoComplete="username" required />
+        <Input name="password" type="password" placeholder="비밀번호" autoComplete="current-password" required />
         <Bnt type="submit">로그인</Bnt>
       </Form>
       <button
         onClick={() => {
           removeCookie('accessToken');
+          removeCookie('refreshToken');
+          localStorage.removeItem('auth-storage');
         }}>
         쿠키버리기
       </button>

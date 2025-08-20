@@ -63,7 +63,7 @@ const WalkTrailBtn = styled.button`
 `;
 
 const PanelHeader = () => {
-  const { setLogout } = useLoginStore();
+  const { logout } = useLoginStore();
   const { PanelType } = usePanelStore();
   const { setTrailName, trailName } = useTrailNameStore();
   const { setRoutes } = useRouteStore();
@@ -144,8 +144,9 @@ const PanelHeader = () => {
         {PanelType}
         <LogoutBtn
           onClick={() => {
-            setLogout();
+            logout();
             removeCookie('accessToken');
+            removeCookie('refreshToken');
           }}>
           로그아웃
         </LogoutBtn>

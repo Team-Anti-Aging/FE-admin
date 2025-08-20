@@ -1,13 +1,16 @@
 import { create } from 'zustand';
+import { createJSONStorage, persist } from 'zustand/middleware';
 
-export const useLoginStore = create((set) => {
-  return {
-    isLogin: false,
-    setLogin: () => {
-      set({ isLogin: true });
-    },
-    setLogout: () => {
-      set({ isLogin: false });
-    },
-  };
-});
+export const useLoginStore = create(
+  persist(
+    (set) => ({
+      isLogin: false,
+      login: () => set({ isLogin: true }),
+      logout: () => set({ isLogin: false }),
+    }),
+    {
+      name: 'auth-storage',
+      storage: createJSONStorage(() => sessionStorage),
+    }
+  )
+);
