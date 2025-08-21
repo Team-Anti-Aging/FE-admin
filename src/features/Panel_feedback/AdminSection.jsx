@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { useState } from 'react';
+import { postAdminFeedback } from '../../apis/api/feedback';
 const Form = styled.form`
   width: 30rem;
   display: flex;
@@ -69,19 +70,37 @@ const UploadButton = styled.button`
   font-weight: bold;
 `;
 
-const AdminSection = () => {
+const AdminSection = ({ feedbackDetail }) => {
   const [input, setInput] = useState('');
   const [preview, setPreview] = useState(null); //  미리보기용 상태
 
   //업로드 핸들러
-  const handSubmit = () => {};
+  const handSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    const img = e.currentTarget.elements.fileImg.files[0];
+
+    //폼데이터 구성
+    formData.append('feedback', feedbackDetail.id);
+    formData.append('status', 'in_progress');
+    formData.append('response_content', input);
+    formData.append('response_image', img);
+
+    console.log(formData);
+
+    try {
+      await postAdminFeedback(feedbackDetail.id, formData);
+      alert('처리완료');
+      window.location.reload();
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   // 미리보기 핸들러
   const handlePrev = (e) => {
     const fileList = e.target.files;
-    if (!fileList || fileList.length === 0) {
-      return;
-    }
-
+    if (!fileList || fileList.length === 0) return;
     const img = fileList[0]; //File 객체(= Blob) 1) 바이너리 파일이다. 2) FormData로 보낼 땐 이걸 그대로 넣는다.
     const reader = new FileReader();
     reader.readAsDataURL(img); // 파일을 Data URL 문자열로 변환. -> 비동기 작업
@@ -95,7 +114,7 @@ const AdminSection = () => {
           <input
             type="file"
             accept="image/*"
-            name="File_img"
+            name="fileImg"
             onChange={(e) => handlePrev(e)}
             style={{ display: 'none' }}
           />
@@ -106,7 +125,7 @@ const AdminSection = () => {
         <Title>관리자 코멘트</Title>
         <TextBox value={input} onChange={(e) => setInput(e.target.value)} />
       </Box>
-      <UploadButton>처리하기</UploadButton>
+      <UploadButton type="submit">처리하기</UploadButton>
     </Form>
   );
 };

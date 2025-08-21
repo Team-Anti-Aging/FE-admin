@@ -3,8 +3,11 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 //페이지
 import Home from './views/Home';
 import LoginPage from './views/LoginPage';
+
+//에러페이지
 import NotFound from './views/NotFound';
 import ServerError from './views/ServerError';
+import Forbidden from './views/Forbidden';
 
 //레이아웃
 import ProtectedRoute from './routes/ProtectedRoute';
@@ -18,6 +21,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/serverError" element={<ServerError />} />
           <Route path="/NotFound" element={<NotFound />} />
+          <Route path="/forbidden" element={<Forbidden />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -37,6 +37,9 @@ instance.interceptors.response.use(
     } else if (error.response?.status === 404) {
       window.location.href = '/notFound';
       return Promise.reject(error);
+    } else if (error.response?.status === 403) {
+      window.location.href = '/forbidden';
+      return Promise.reject(error);
     } else if (error.response?.status === 500) {
       window.location.href = '/serverError';
       return Promise.reject(error);

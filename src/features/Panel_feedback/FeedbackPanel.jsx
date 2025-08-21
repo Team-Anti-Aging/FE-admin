@@ -28,7 +28,7 @@ const FeedbackDetailView = () => {
       <HeaderSection feedbackDetail={feedbackDetail} />
       <MainWrapper>
         <UserSection feedbackDetail={feedbackDetail} />
-        <AdminSection key={feedbackDetail.id} />{' '}
+        <AdminSection key={feedbackDetail.id} feedbackDetail={feedbackDetail} />
         {/*key값이 달라질 때마다 리렌더링 되어 AdminSection의 상태가 초기화 된다.*/}
       </MainWrapper>
     </Container>

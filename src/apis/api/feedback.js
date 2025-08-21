@@ -9,7 +9,6 @@ export const getFeedbacks = async (walktrail_name) => {
 // 피드백 디테일 정보
 export const getFeedbackDetail = async (Fid) => {
   const { data } = await instance.get(`/feedback/${Fid}/`);
-  console.log('피드백 디테일', data);
   let { id, walktrail, location, category, feedback_content, feedback_image_url, created_at } = data;
 
   switch (walktrail) {
@@ -53,7 +52,12 @@ export const getFeedbackDetail = async (Fid) => {
 };
 
 // 관리자 피드백 처리
-export const postAdminFeedback = async (id, info) => {
-  const res = await instance.post(`/admin_func/create/${id}`, info);
+export const postAdminFeedback = async (id, formData) => {
+  const res = await instance.post(`/admin_func/create/${id}/`, formData);
   return res;
+};
+
+export const getResponded = async (walktrail_name) => {
+  const { data } = await instance.get(`/admin_func/responded/${walktrail_name}/`);
+  return data;
 };

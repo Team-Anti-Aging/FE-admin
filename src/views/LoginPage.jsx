@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import logo from '../assets/img/logo.png';
 
 // 훅
 import { useNavigate } from 'react-router-dom';
@@ -15,6 +16,7 @@ const Container = styled.div`
   height: 100vh;
   background-color: var(--mainBeige);
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 `;
@@ -45,6 +47,9 @@ const Bnt = styled.button`
   font-size: 2rem;
   border-radius: 15px;
 `;
+const Logo = styled.img`
+  width: 15rem;
+`;
 
 const LoginPage = () => {
   const { login } = useLoginStore();
@@ -74,19 +79,19 @@ const LoginPage = () => {
   };
   return (
     <Container>
+      <Logo
+        src={logo}
+        onClick={() => {
+          removeCookie('accessToken');
+          removeCookie('refreshToken');
+          localStorage.removeItem('auth-storage');
+        }}
+      />
       <Form onSubmit={handleLogin}>
         <Input name="username" type="text" placeholder="아이디" autoComplete="username" required />
         <Input name="password" type="password" placeholder="비밀번호" autoComplete="current-password" required />
         <Bnt type="submit">로그인</Bnt>
       </Form>
-      <button
-        onClick={() => {
-          removeCookie('accessToken');
-          removeCookie('refreshToken');
-          localStorage.removeItem('auth-storage');
-        }}>
-        쿠키버리기
-      </button>
     </Container>
   );
 };
