@@ -54,8 +54,10 @@ export const getFeedbackDetail = async (Fid) => {
 // 관리자 피드백 처리
 export const postAdminFeedback = async (id, formData) => {
   const res = await instance.post(`/admin_func/create/${id}/`, formData);
+  console.log(res)
   return res;
 };
+
 
 export const getResponded = async (walktrail_name) => {
   const { data } = await instance.get(`/admin_func/responded/${walktrail_name}/`);

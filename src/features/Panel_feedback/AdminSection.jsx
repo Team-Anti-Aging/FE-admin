@@ -86,7 +86,7 @@ const AdminSection = ({ feedbackDetail }) => {
     formData.append('response_content', input);
     formData.append('response_image', img);
 
-    console.log(formData);
+    
 
     try {
       await postAdminFeedback(feedbackDetail.id, formData);
