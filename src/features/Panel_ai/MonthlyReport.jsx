@@ -21,12 +21,18 @@ const ReportBtn = styled.button`
     font-size: 1rem;
     border-radius: 15px;
 `;
-const AiContentDiv = styled.div``;
+const AiContentDiv = styled.div`
+    white-space: pre-wrap;
+    overflow-wrap: anywhere; /* 긴 단어 줄바꿈 */
+    padding: 2rem;
+    font-size: 1.2rem;
+`;
 const ReportDiv = styled.div``;
 
 const MonthlyReport = ({ trailName, reportType }) => {
     const [ym, setYm] = useState(() => new Date().toISOString().slice(0, 7)); // "YYYY-MM"
     const [aiText, setAiText] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -38,12 +44,16 @@ const MonthlyReport = ({ trailName, reportType }) => {
             month: Number(month),
         };
         console.log('send', body);
+        setLoading(true); // 추가
+        setAiText(null);
         try {
             const ai_report = await monthlyReport(trailName, body);
             console.log(ai_report);
-            setAiText(ai_report);
+            setAiText(ai_report.replace(/[*#]/g, '')); // 별 제거
         } catch (e) {
             console.error(e);
+        } finally {
+            setLoading(false); // 추가
         }
     };
 
@@ -54,7 +64,11 @@ const MonthlyReport = ({ trailName, reportType }) => {
                 <ReportBtn>{trailName} 리포트 확인하기</ReportBtn>
             </ReportForm>
             <AiContentDiv>
-                <ReportDiv>{aiText}</ReportDiv>
+                {loading ? (
+                    <ReportDiv style={{ textAlign: 'center', fontSize: '3rem' }}>로딩 중</ReportDiv>
+                ) : (
+                    <ReportDiv>{aiText}</ReportDiv>
+                )}
             </AiContentDiv>
         </>
     );

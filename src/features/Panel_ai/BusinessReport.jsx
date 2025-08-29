@@ -88,6 +88,7 @@ const BusinessReport = ({ trailName, reportType }) => {
     const [reportStyle, setReportStyle] = useState('줄글'); // proose / itemized
     const [docsId, setDocsID] = useState([]); // 민원 항목
     const [sendText, setSendText] = useState('');
+    const [loading, setLoading] = useState(false);
 
     //ai 핸들로
     const handleSubmit = async (e) => {
@@ -102,12 +103,16 @@ const BusinessReport = ({ trailName, reportType }) => {
             docs_id: docsId,
         };
         console.log('보내는 데이터', body);
+        setLoading(true); // 추가
+        setAiText(null);
         try {
             const report = await customReport(body);
             console.log('보고서 응답', report);
-            setAiText(report);
+            setAiText(report.replace(/[*#]/g, ''));
         } catch (e) {
             console.error(e);
+        } finally {
+            setLoading(false); // 추가
         }
     };
 
@@ -131,7 +136,11 @@ const BusinessReport = ({ trailName, reportType }) => {
 
     return (
         <ContainerDiv>
-            {aiText ? (
+            {loading ? ( // 추가
+                <AiContentDiv>
+                    <ReportDiv style={{ textAlign: 'center', fontSize: '2rem' }}>로딩 중</ReportDiv>
+                </AiContentDiv>
+            ) : aiText ? (
                 <AiContentDiv>
                     <h1>AI 보고서</h1>
                     <ReportDiv>{aiText}</ReportDiv>
@@ -150,23 +159,17 @@ const BusinessReport = ({ trailName, reportType }) => {
                     <ReportForm onSubmit={handleSubmit}>
                         <ReportInput
                             value={title}
-                            onChange={(e) => {
-                                setTitle(e.target.value);
-                            }}
+                            onChange={(e) => setTitle(e.target.value)}
                             placeholder="계획 중인 개선 사업 제목을 입력해주세요! ex) 장안근린공원 노후시설물 개선"
                         />
                         <ReportInput
                             value={instruction}
-                            onChange={(e) => {
-                                setInstruction(e.target.value);
-                            }}
+                            onChange={(e) => setInstruction(e.target.value)}
                             placeholder="AI가 알아야 할 자세한 내용을 적어주세요!"
                         />
                         <ReportInput
                             value={section}
-                            onChange={(e) => {
-                                setSection(e.target.value);
-                            }}
+                            onChange={(e) => setSection(e.target.value)}
                             placeholder="보고서 항목을 ,로 구분해서 적어주세요! ex) 개요, 현황 ..."
                         />
 
