@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { useState } from 'react';
 
 //api
@@ -79,6 +79,23 @@ const AiContentDiv = styled.div`
     font-size: 1.2rem;
 `;
 const ReportDiv = styled.div``;
+const spin = keyframes`to { transform: rotate(360deg); }`;
+const Loader = styled.div`
+    width: 36px;
+    height: 36px;
+    border: 3px solid rgba(0, 0, 0, 0.1);
+    border-top-color: var(--mainGreen);
+    border-radius: 50%;
+    animation: ${spin} 0.8s linear infinite;
+    margin: 0 auto;
+`;
+const LoadingWrap = styled.div`
+    text-align: center;
+    display: grid;
+    justify-items: center;
+    gap: 0.75rem;
+    opacity: 0.9;
+`;
 
 const BusinessReport = ({ trailName, reportType }) => {
     const [aiText, setAiText] = useState(null);
@@ -138,7 +155,10 @@ const BusinessReport = ({ trailName, reportType }) => {
         <ContainerDiv>
             {loading ? ( // 추가
                 <AiContentDiv>
-                    <ReportDiv style={{ textAlign: 'center', fontSize: '2rem' }}>로딩 중</ReportDiv>
+                    <LoadingWrap>
+                        <Loader aria-label="loading" />
+                        <div>AI가 보고서를 생성하고 있어요…</div>
+                    </LoadingWrap>
                 </AiContentDiv>
             ) : aiText ? (
                 <AiContentDiv>
