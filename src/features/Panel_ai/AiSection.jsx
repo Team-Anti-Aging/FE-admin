@@ -12,7 +12,7 @@ const ContainerDiv = styled.div`
 `;
 const HeaderDiv = styled.div`
     height: 3rem;
-
+    margin-top: 1rem;
     display: flex;
     justify-content: space-around;
 `;
